@@ -30,7 +30,7 @@ CART_SESSION_ID='cart'
 SECRET_KEY = 'django-insecure-j+fnq-s8w7y^t(2zf@-+0_edi$#))o*k69x(vi*bn997t01pb)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['smartshopee.herokuapp.com']
 
