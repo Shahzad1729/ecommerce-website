@@ -63,7 +63,7 @@
                         <div class="cart" style="margin-left:685px ;color:azure;font-weight:bold;">
                             {% with total_items=cart|length %}
                             {% if cart|length > 0 %}
-                            <img src='/media/cart.png' width="30px" height="20px">
+                            <img src='https://www.citypng.com/public/uploads/preview/download-hd-shopping-cart-black-logo-icon-png-11640441685ymd041qjws.png' width="30px" height="20px">
                             <a href="{%	url	'cart:cart_detail' %}">
                                 {{ total_items }} item{{ total_items|pluralize }},
                                 ${{ cart.get_total_price }}
