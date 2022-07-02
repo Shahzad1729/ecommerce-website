@@ -1,5 +1,4 @@
 from django.shortcuts import get_object_or_404, render, get_list_or_404
-from numpy import product
 from .models import Category, Product
 from cart.forms import CartAddProductForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
