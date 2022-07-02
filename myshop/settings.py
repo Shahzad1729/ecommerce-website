@@ -30,7 +30,7 @@ CART_SESSION_ID='cart'
 SECRET_KEY = 'django-insecure-j+fnq-s8w7y^t(2zf@-+0_edi$#))o*k69x(vi*bn997t01pb)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['smartshopee.herokuapp.com']
 
@@ -143,7 +143,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
