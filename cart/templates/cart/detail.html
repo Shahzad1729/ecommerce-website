@@ -1,0 +1,58 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+Your shopping cart
+{% endblock %}
+
+{% block content %}
+<h1>Your shopping cart</h1>
+<div class="mainContent" style="margin-left: 242px;">
+<table class="cart">
+    <thead>
+        <tr style="background-color: #5e98de; color: whitesmoke;">
+            <th style="padding: 8px;">Image</th>
+            <th style="padding: 8px;">Product</th>
+            <th style="padding: 8px;">Quantity</th>
+            <th style="padding: 8px;">Remove</th>
+            <th style="padding: 8px;">Unit price</th>
+            <th style="padding: 8px;">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart %}
+        {% with product=item.product %}
+        <tr style="background-color: #ebfaff; font-weight: bold;">
+            <td style="padding: 8px;">
+                <a href="{{product.get_absolute_url}}">
+                    <img
+                        src='{{product.imageUrl}}' width="300px" height="250px">
+                </a>
+            </td>
+            <td style="padding: 8px;">{{ product.name }}</td>
+            <td style="padding: 8px;">
+                <form action="{%	url	'cart:cart_add' product.id %}" method="post">
+                    {{ item.update_quantity_form.quantity }}
+                    {{ item.update_quantity_form.update }}
+                    <input type="submit" value="Update">
+                    {% csrf_token %}
+                </form>
+            </td>
+            <td style="padding: 8px;"><a style="text-decoration: none;color: crimson;" href="{%	url	'cart:cart_remove' product.id %}">Remove</a></td>
+            <td  style="padding: 8px;"class="num">${{ item.price }}</td>
+            <td  style="padding: 8px;"class="num">${{ item.total_price }}</td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+        <tr class="total" style="background-color: #5e98de; color: whitesmoke;">
+            <td style="padding: 8px;">Total</td>
+            <td colspan="4"></td>
+            <td style="padding: 8px;" class="num">${{ cart.get_total_price }}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<p class="text-right" style="margin-left:870px;">
+    <a style="background-color: grey;text-decoration: none; color: whitesmoke;padding:5px;border-radius: 3px;" href="{%	url	'shop:product_list' %}" class="buttonlight">Continue shopping</a>
+    <a style="background-color: #5e98de;text-decoration: none; color: whitesmoke;padding:5px;border-radius: 3px;" href="{%	url	'orders:order_create' %}" class="button">Checkout</a>
+</p>
+{% endblock %}

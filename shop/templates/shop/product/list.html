@@ -1,0 +1,137 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+{% if category %} {{category.name}}{% else %}Products{% endif %}
+
+{% endblock %}
+{% block style %}
+<style>
+    
+    .box img {
+        width: 200px;
+        border-radius: 50px;
+        height: 250px;
+       
+    }
+    .item a:hover{
+       border-radius: 10px;
+    }
+
+    .product_list {
+        overflow: auto;
+        margin-left: 22px;
+    }
+
+    #sidebar {
+        display: inline-block;
+        font-size: larger;
+        background: #deecf9;
+        padding-right: 10px;
+    }
+
+    #sidebar li {
+        text-decoration: none;
+        float: left;
+        list-style: none;
+        margin: 5px 64px;
+        border: 2px solid blue;
+    }
+
+    #sidebar ul {
+        margin-left: 123px;
+        overflow: auto;
+        margin-top: -61px;
+    }
+
+    #sidebar a {
+        font-family: "calibri";
+        text-decoration: none;
+        border-radius: 5px;
+        color: black;
+        padding: 5px;
+        margin: 5px;
+    }
+
+    h3 {
+        font-family: Consolas;
+        margin-left: 26px;
+        margin-top: 14px;
+        font-size: 30px;
+        color: #025176;
+    }
+
+    #sidebar li:hover {
+        background: #b7cae9;
+        color: whitesmoke;
+    }
+
+    .box {
+        margin: 4px 0px;
+        padding: 23px;
+        width: 30%;
+        box-sizing: border-box;
+        display: inline-block;
+    }
+
+    .container {
+        margin-top: 74px;
+    width: 1253px;
+    margin-left: 88px;
+    }
+    .box h4{
+        font-size: 20px;
+    }
+    .box h4 a{
+        text-decoration: none;
+    }
+    .box h4 a:hover{
+        color: black;
+        background-color: rgb(230, 196, 196);
+        border-radius: 4px;
+    }
+    h1{
+        font-family: Consolas;
+        font-weight: bold;
+        margin-left:28px;
+        color: #025176;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="sidebar">
+    <h3>Categories</h3>
+    <ul>
+        <li {% if not category %}class="selected" {% endif %}>
+            <a href="{% url 'shop:product_list' %}">All</a>
+        </li>
+        {% for c in categories %}
+        <li {% if category.slug == c.slug %}class="selected" {% endif %}>
+            <a href="{{c.get_absolute_url}}">{{c.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<h1>Products</h1>
+
+<div class="container">
+    {% for product in products %}
+    <div class="box">
+        <div class="item">
+            <a href="{{product.get_absolute_url}}">
+                <!-- "{% if product.image %} {{product.image.url}} {% else %} {% static 'img/no_image.png' %} {% endif %}" -->
+                <img src='{{product.imageUrl}}' width="250px" height="250px">
+            </a>
+        </div>
+        <h4><a href="{{product.get_absolute_url}}">{{product.name}}</a><br>${{product.price}}</h4>
+
+        <p>{{ product.description|linebreaks }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% include "shop/pagination.html" with page=products %}
+
+{% endblock %}

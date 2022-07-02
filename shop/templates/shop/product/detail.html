@@ -1,0 +1,85 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+{{ product.name }}
+{% endblock %}
+{% block style %}
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    h4 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .box {
+        padding: 2px 17px;
+        width: 33%;
+        box-sizing: border-box;
+        display: inline-block;
+    }
+
+    .container {
+        margin: auto;
+        margin-left: 254px;
+        margin-top: 27px;
+        width: 1075px;
+    }
+
+    .info {
+        margin-top: -253px;
+        display: block;
+        margin-left: 400px;
+    }
+
+    .info a {
+        text-decoration: none;
+    }
+
+    .info a:hover {
+        color: black;
+        background-color: rgb(230, 196, 196);
+        border-radius: 4px;
+    }
+
+    .info input {
+        background-color: #8d8b8b;
+        color: white;
+        padding: 5px 13px;
+        border-radius: 9px;
+        margin: 5px;
+    }
+    .info input:hover{
+        background: #f66b5d;
+    }
+    .price{
+        font-family: Calibri;
+        font-weight: bold;
+        font-size: 23px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="box">
+        <img src='{{product.imageUrl}}' width="300px" height="260px">
+    </div>
+    <div class="box info">
+        <h1>{{ product.name }}</h1>
+        <h2><a href="{{	product.category.get_absolute_url	}}">{{product.category}}</a></h2>
+
+        <p class="price">${{ product.price }}</p>
+        <form action="{%	url	'cart:cart_add' product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Add	to cart">
+        </form>
+    </div>
+</div>
+<div style="text-align:justify;text-align:center; font-size: 21px;margin-bottom: 109px;margin-top: 89px;">
+    <p>{{ product.description|linebreaks }}</p>
+</div>
+
+{% endblock %}

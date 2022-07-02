@@ -1,0 +1,26 @@
+{% extends "shop/base.html" %}
+{% block title %}
+Checkout
+{% endblock %}
+
+{% block content %}
+<h1 style="margin-left:50px">Checkout</h1>
+
+<div class="order-info" style="border-radius:15px;margin-left: 700px;display: block;width: 22%;padding: 0px 31px;background-color: #dfdfdf;">
+    <h3>Your order</h3>
+    <ul>
+        {% for item in cart %}
+        <li>
+            {{ item.quantity }} x {{ item.product.name }}
+            <span>${{ item.total_price }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    <p style="font-family: Calibri;font-weight:bold;font-size: 24px;">Total: ${{ cart.get_total_price }}</p>
+</div>
+<form action="." method="post" class="order-form" style="font-size:20px;font-weight:bold;border-radius:15px;margin-left:357px;margin-top: -134px;margin-bottom: 67px; background-color: #c2deff;display: block;width: 22%;padding: 1px 13px;">
+    {{ form.as_p }}
+    <p><input type="submit" value="Place order" style="padding: 5px 13px;border-radius: 9px;"></p>
+    {% csrf_token %}
+</form>
+{% endblock %}
